@@ -26,7 +26,7 @@ export async function render(tab = 'pilotes') {
   const [ds, photos] = await Promise.all([api.driverStandings(), api.driverPhotos()]);
   return `${pageHead('Pilotes', roundLabel(ds.round))}${tabs}
     <div class="wrap section">
-      <div class="podium">${ds.rows.slice(0, 3).map((s) => driverCard({ driver: s.Driver, team: s.Constructors.at(-1), pos: s.position, stat: s.points, photo: photos[s.Driver.permanentNumber]?.photo })).join('')}</div>
+      <div class="podium">${ds.rows.slice(0, 3).map((s) => driverCard({ driver: s.Driver, team: s.Constructors.at(-1), pos: s.position, stat: s.points, photo: photos[s.Driver.permanentNumber] })).join('')}</div>
       <div class="rows">${ds.rows.slice(3).map(driverRow).join('')}</div>
       ${ds.rows.length ? '' : empty('Pas encore de classement cette saison.')}
     </div>`;

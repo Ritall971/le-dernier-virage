@@ -3,6 +3,12 @@ import { esc, fmtRange, fmtDay, raceName, country } from './fmt.js';
 import { teamColor } from './teams.js';
 import { weekendStart, raceStart, isSprintWeekend } from './season.js';
 
+// Photo haute définition, avec repli sur la miniature puis sur rien si l'image n'existe pas.
+export function photoImg(p, cls, alt) {
+  return `<img class="${cls}" src="${esc(p.photo)}" data-fallback="${esc(p.photoSmall || '')}" alt="${esc(alt)}" loading="lazy" decoding="async"
+    onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=''}else{this.remove()}">`;
+}
+
 export const kerb = () => '<div class="kerb" aria-hidden="true"></div>';
 
 export function pageHead(title, sub = '') {
@@ -18,7 +24,7 @@ export function driverCard({ driver, team, pos, stat, statLabel = 'PTS', photo }
   const c = teamColor(team?.constructorId || team?.name);
   const num = driver.permanentNumber || '';
   return `<a class="card" href="#/pilotes/${esc(driver.driverId)}" style="--c:${c}">
-    ${photo ? `<img class="card__photo" src="${esc(photo)}" alt="" loading="lazy" onerror="this.remove()">` : `<div class="card__num" aria-hidden="true">${esc(num)}</div>`}
+    ${photo?.photo ? photoImg(photo, 'card__photo', '') : `<div class="card__num" aria-hidden="true">${esc(num)}</div>`}
     ${pos ? `<div class="card__pos">P${esc(pos)}</div>` : `<div class="card__pos">#${esc(num)}</div>`}
     <div class="card__name"><small>${esc(driver.givenName)}</small>${esc(driver.familyName)}</div>
     <div class="card__team">${esc(team?.name || '')}</div>

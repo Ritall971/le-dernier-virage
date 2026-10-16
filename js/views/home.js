@@ -32,7 +32,7 @@ export async function render() {
       : `<em>${esc(leader.Driver.familyName)}</em> et ${esc(second.Driver.familyName)} à égalité`;
   }
 
-  const photo = (d) => photos[d.permanentNumber]?.photo;
+  const photo = (d) => photos[d.permanentNumber];
 
   return `
   <section class="hero" style="--accent:${accent}">

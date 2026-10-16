@@ -14,7 +14,7 @@ export async function render() {
   return `${pageHead('Pilotes', `${rows.length} pilotes classés cette saison, regroupés par écurie.`)}
     <div class="wrap section">
       <div class="grid">
-        ${rows.map((s) => driverCard({ driver: s.Driver, team: s.Constructors.at(-1), stat: s.points, photo: photos[s.Driver.permanentNumber]?.photo })).join('') || empty('Aucun pilote pour le moment.')}
+        ${rows.map((s) => driverCard({ driver: s.Driver, team: s.Constructors.at(-1), stat: s.points, photo: photos[s.Driver.permanentNumber] })).join('') || empty('Aucun pilote pour le moment.')}
       </div>
     </div>`;
 }

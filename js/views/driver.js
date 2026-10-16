@@ -2,7 +2,7 @@
 import * as api from '../api.js';
 import { esc, age, nat, raceName, status, fmtFull } from '../fmt.js';
 import { teamColor } from '../teams.js';
-import { sectionHead, empty } from '../ui.js';
+import { sectionHead, empty, photoImg } from '../ui.js';
 import { pointsChart } from './chart.js';
 
 let currentTitle = 'Pilote';
@@ -24,7 +24,7 @@ export async function render(id) {
   const poles = results.filter((x) => x.res.grid === '1').length;
   const dnf = results.length - classified.length;
   const best = classified.length ? Math.min(...classified.map((x) => Number(x.res.position))) : null;
-  const photo = photos[driver.permanentNumber]?.photo;
+  const photo = photos[driver.permanentNumber];
 
   return `
   <section class="profile" style="--c:${c}">
@@ -39,7 +39,7 @@ export async function render(id) {
           ${driver.dateOfBirth ? `<span>Âge <b>${age(driver.dateOfBirth)} ans</b> (né le ${esc(fmtFull(new Date(driver.dateOfBirth)))})</span>` : ''}
         </div>
       </div>
-      ${photo ? `<img class="profile__photo" src="${esc(photo)}" alt="${esc(currentTitle)}" onerror="this.remove()">` : `<div class="profile__bignum" aria-hidden="true">${esc(driver.permanentNumber || '')}</div>`}
+      ${photo?.photo ? photoImg(photo, 'profile__photo', currentTitle) : `<div class="profile__bignum" aria-hidden="true">${esc(driver.permanentNumber || '')}</div>`}
     </div>
   </section>
   <div class="kerb" aria-hidden="true"></div>

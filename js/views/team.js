@@ -1,7 +1,9 @@
 // Fiche écurie : chiffres de la saison, pilotes, points par course, résultats des deux voitures.
 import * as api from '../api.js';
 import { esc, nat, raceName } from '../fmt.js';
-import { teamColor } from '../teams.js';
+import { teamColor, teamKey } from '../teams.js';
+import { TEAM_DATA, SPECS_2026 } from '../team-data.js';
+import { carSvg } from './car.js';
 import { sectionHead, driverCard, empty } from '../ui.js';
 import { pointsChart } from './chart.js';
 
@@ -46,9 +48,11 @@ export async function render(id) {
       </div>
     </section>
 
+    ${carBlock(id, team.name)}
+
     <section class="section">
       ${sectionHead('Pilotes')}
-      <div class="grid">${drivers.map((s) => driverCard({ driver: s.Driver, team, pos: s.position, stat: s.points, photo: photos[s.Driver.permanentNumber]?.photo })).join('') || empty('Pas encore de pilote classé.')}</div>
+      <div class="grid">${drivers.map((s) => driverCard({ driver: s.Driver, team, pos: s.position, stat: s.points, photo: photos[s.Driver.permanentNumber] })).join('') || empty('Pas encore de pilote classé.')}</div>
     </section>
 
     ${races.length ? `<section class="section">
@@ -67,4 +71,28 @@ export async function render(id) {
         </tr>`).join('')}</tbody></table></div>
     </section>` : ''}
   </div>`;
+}
+
+function carBlock(id, name) {
+  const data = TEAM_DATA[teamKey(id)];
+  if (!data) return '';
+  const current = data.liveries.at(-1);
+  const specs = [['Châssis', data.car], ['Moteur', data.engine], ['Base', data.base], ...SPECS_2026];
+  return `<section class="section">
+    ${sectionHead(`La voiture : ${data.car}`)}
+    <div class="car-hero" style="--c:${current.primary}">
+      ${carSvg(current, `${name} ${data.car}`)}
+    </div>
+    <dl class="specs">${specs.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
+  </section>
+  <section class="section">
+    ${sectionHead('Les livrées')}
+    <div class="liveries">
+      ${data.liveries.slice().reverse().map((l) => `<figure class="livery">
+        ${carSvg(l, `Livrée ${l.year}`)}
+        <figcaption><b>${l.year}</b> ${esc(l.car)}${l.note ? `<span>${esc(l.note)}</span>` : ''}</figcaption>
+      </figure>`).join('')}
+    </div>
+    <p class="note">Illustrations aux couleurs de chaque livrée, saisons ${data.liveries[0].year} à ${current.year}.</p>
+  </section>`;
 }

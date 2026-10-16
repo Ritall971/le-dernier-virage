@@ -2,6 +2,7 @@
 import { esc } from './fmt.js';
 import { schedule } from './api.js';
 import { currentSession } from './season.js';
+import { enhance, initHeader, initMagnet } from './motion.js';
 
 import * as home from './views/home.js';
 import * as standings from './views/standings.js';
@@ -68,6 +69,7 @@ async function render() {
     document.title = view.title ? `${view.title(...params)} · Le dernier virage` : 'Le dernier virage';
     if (view.mount) cleanup = view.mount(main, ...params);
     window.scrollTo(0, 0);
+    enhance(main);
   } catch (e) {
     if (id !== renderId) return;
     console.error(e);
@@ -95,6 +97,18 @@ async function updateLiveDot() {
     document.getElementById('nav-live-dot').hidden = !currentSession(races);
   } catch { /* sans importance */ }
 }
+
+// L'en-tête est fixe : on réserve sa hauteur en haut de la page.
+const header = document.querySelector('.site-header');
+function measureHeader() {
+  if (header.classList.contains('compact') || nav.classList.contains('open')) return;
+  document.documentElement.style.setProperty('--hdr-h', `${header.offsetHeight}px`);
+}
+measureHeader();
+window.addEventListener('resize', measureHeader);
+document.fonts?.ready.then(measureHeader);
+initHeader(header);
+initMagnet();
 
 render();
 updateLiveDot();

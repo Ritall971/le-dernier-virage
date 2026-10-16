@@ -33,6 +33,9 @@ Puis ouvre http://localhost:8000 dans le navigateur. (Avec Node : `npx serve .`)
 | `js/fmt.js` | Dates en français, traductions, mise en forme |
 | `js/ui.js` | Éléments réutilisés : cartes pilotes, lignes de classement, lignes de calendrier |
 | `js/views/*.js` | Une page par fichier |
+| `js/motion.js` | Animations : apparitions au scroll, en-tête compact, boutons magnétiques, chiffres qui défilent (désactivées si le système demande moins d'animations) |
+| `js/circuit-maps.js` | Tracés des circuits, générés depuis [bacinger/f1-circuits](https://github.com/bacinger/f1-circuits) (licence MIT) |
+| `js/team-data.js` | Châssis, moteur, base et livrées de chaque écurie : saisi à la main, à corriger ici si besoin |
 | `js/demo.js` | Données d'exemple tirées au sort (jamais affichées quand l'API répond) |
 
 ## Sources de données

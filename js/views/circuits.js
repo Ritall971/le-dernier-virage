@@ -3,6 +3,7 @@ import * as api from '../api.js';
 import { esc, country, fmtRange, raceName } from '../fmt.js';
 import { pageHead } from '../ui.js';
 import { weekendStart, raceStart, isDone } from '../season.js';
+import { trackSvg } from './track.js';
 
 export const title = () => 'Circuits';
 
@@ -13,8 +14,9 @@ export async function render() {
       <div class="grid">
         ${races.map((r) => {
           const loc = r.Circuit.Location;
-          return `<a class="card" href="#/circuits/${esc(r.Circuit.circuitId)}" style="--c:${isDone(r) ? '#55524e' : '#ff2a3c'}">
+          return `<a class="card card--track" href="#/circuits/${esc(r.Circuit.circuitId)}" style="--c:${isDone(r) ? '#55524e' : '#ff2a3c'}">
             <div class="card__num" aria-hidden="true">${esc(r.round)}</div>
+            <div class="card__track" aria-hidden="true">${trackSvg(r.Circuit.circuitId, { mini: true, color: isDone(r) ? '#8a857f' : '#ff2a3c' })}</div>
             <div class="card__pos">${esc(country(loc.country))}</div>
             <div class="card__name" style="font-size:28px">${esc(r.Circuit.circuitName)}</div>
             <div class="card__team">${esc(loc.locality)} · ${esc(raceName(r.raceName))}</div>

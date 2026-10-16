@@ -126,17 +126,28 @@ export async function openf1(path) {
   return res.json();
 }
 
+// OpenF1 renvoie des miniatures : on demande au serveur d'images de Formula1.com une version plus grande.
+export function hiRes(url) {
+  if (!url) return url;
+  return url
+    .replace(/\.transform\/\d+col(?:-retina)?\//, '.transform/4col-retina/')
+    .replace(/([,/])w_\d+/, '$1w_960')
+    .replace(/([,/])h_\d+/, '$1h_960');
+}
+
 // Photos et couleurs officielles des pilotes, par numéro de course. Facultatif : en cas d'échec on s'en passe.
 let photosPromise = null;
 export function driverPhotos() {
   if (demoMode) return Promise.resolve({});
-  const cached = cacheGet('o:photos');
+  const cached = cacheGet('o:photos2');
   if (cached) return Promise.resolve(cached);
   photosPromise ??= openf1('drivers?session_key=latest')
     .then((list) => {
       const map = {};
-      for (const d of list) map[d.driver_number] = { photo: d.headshot_url, colour: d.team_colour, acronym: d.name_acronym };
-      cacheSet('o:photos', map);
+      for (const d of list) {
+        map[d.driver_number] = { photo: hiRes(d.headshot_url), photoSmall: d.headshot_url, colour: d.team_colour, acronym: d.name_acronym };
+      }
+      cacheSet('o:photos2', map);
       return map;
     })
     .catch(() => ({}));
