@@ -5,6 +5,7 @@ import { teamColor } from '../teams.js';
 import { kerb, sectionHead, empty } from '../ui.js';
 import { sessionsOf, isDone } from '../season.js';
 import { trackSvg, trackInfo } from './track.js';
+import { LAP_RECORDS } from '../lap-records.js';
 
 let currentTitle = 'Circuit';
 export const title = () => currentTitle;
@@ -62,9 +63,19 @@ export async function render(id) {
   </div>`;
 }
 
+function recordStat(id) {
+  const r = LAP_RECORDS[id];
+  if (!r) return '';
+  return `<div class="stat stat--record" style="--c:var(--purple)">
+    <span>Record absolu du tour</span>
+    <b>${esc(r.time.replace('.', ','))}</b>
+    <div class="stat__by">${esc(r.driver)} · ${esc(r.team)} · ${esc(r.session)} ${r.year}</div>
+  </div>`;
+}
+
 function trackBlock(id) {
   const t = trackInfo(id);
-  if (!t) return '';
+  if (!t) return LAP_RECORDS[id] ? `<div class="wrap section"><div class="track-facts">${recordStat(id)}</div></div>` : '';
   return `<div class="wrap section">
     <div class="track-wrap">
       ${trackSvg(id)}
@@ -72,8 +83,9 @@ function trackBlock(id) {
         ${t.len ? `<div class="stat"><b>${(t.len / 1000).toFixed(3).replace('.', ',')}</b><span>km par tour</span></div>` : ''}
         ${t.opened ? `<div class="stat"><b>${t.opened}</b><span>Ouverture</span></div>` : ''}
         ${t.firstgp ? `<div class="stat"><b>${t.firstgp}</b><span>Premier Grand Prix</span></div>` : ''}
+        ${recordStat(id)}
       </div>
     </div>
-    <p class="note">Tracé dessiné à partir des coordonnées GPS du circuit. Le damier marque la ligne de départ.</p>
+    <p class="note">Tracé dessiné à partir des coordonnées GPS du circuit. Le damier marque la ligne de départ.${LAP_RECORDS[id] ? ' Record arrêté à la fin de la saison 2025.' : ''}</p>
   </div>`;
 }
