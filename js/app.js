@@ -18,6 +18,7 @@ import * as live from './views/live.js';
 import * as pronos from './views/pronos.js';
 import * as account from './views/account.js';
 import * as privacy from './views/privacy.js';
+import * as cookies from './views/cookies.js';
 import { handleEmailReturn } from './auth.js';
 
 // [motif, vue, rubrique du menu]
@@ -35,7 +36,8 @@ const ROUTES = [
   [/^\/circuits\/([\w-]+)$/, circuit, 'circuits'],
   [/^\/pronos$/, pronos, 'pronos'],
   [/^\/compte$/, account, 'compte'],
-  [/^\/confidentialite$/, privacy, ''],
+  [/^\/(?:rgpd|confidentialite)$/, privacy, ''],
+  [/^\/cookies$/, cookies, ''],
 ];
 
 const main = document.getElementById('main');
