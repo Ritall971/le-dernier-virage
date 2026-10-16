@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Le dernier virage</title>
+  <meta name="description" content="Résultats, classements, pilotes, écuries, circuits et suivi en direct de la saison de Formule 1.">
+  <meta name="theme-color" content="#0b0b0c">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,700;0,800;1,700;1,800&family=Barlow:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="carbon">
+  <a class="skip" href="#main">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="logo" href="#/" aria-label="Le dernier virage, accueil">Le dernier<span>/</span>virage</a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Navigation principale">
+        <a href="#/direct" data-nav="direct"><i class="live-dot" id="nav-live-dot" hidden></i>Direct</a>
+        <a href="#/classements" data-nav="classements">Classements</a>
+        <a href="#/calendrier" data-nav="calendrier">Calendrier</a>
+        <a href="#/pilotes" data-nav="pilotes">Pilotes</a>
+        <a href="#/ecuries" data-nav="ecuries">Écuries</a>
+        <a href="#/circuits" data-nav="circuits">Circuits</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="demo-banner" id="demo-banner" hidden>
+    Aperçu avec des données d'exemple : la source officielle n'a pas pu être jointe depuis cet environnement.
+  </div>
+
+  <main id="main" tabindex="-1">
+    <div class="loading">Chargement…</div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <span class="logo logo--small">Le dernier<span>/</span>virage</span>
+      <p>Données : <a href="https://github.com/jolpica/jolpica-f1" target="_blank" rel="noopener">Jolpica F1</a> et <a href="https://openf1.org" target="_blank" rel="noopener">OpenF1</a>. Site non officiel, sans lien avec la Formula 1.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
