@@ -15,4 +15,13 @@ export const CONFIG = {
   // Fréquence de rafraîchissement de la page Direct pendant une session (en secondes).
   // OpenF1 gratuit autorise 30 requêtes par minute, une mise à jour en coûte 4.
   liveRefreshSeconds: 15,
+
+  // Supabase : comptes des joueurs, pronostics et classement.
+  // La clé « anon » est faite pour être publique : la sécurité est assurée par les règles de supabase/schema.sql.
+  // Ne mets jamais ici la clé « service_role ».
+  supabaseUrl: 'https://ysfbhegmxwnfrmpcvvxu.supabase.co',
+  supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzZmJoZWdteHduZnJtcGN2dnh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNTQwNjksImV4cCI6MjEwNzczMDA2OX0.RyKaYY6GB_3uRW15tsKx8P3vTWdCUv9y9uV4eBpHhOM',
+
+  // Adresse de contact affichée sur la page Confidentialité (obligatoire avec le RGPD). À remplir.
+  contactEmail: '',
 };

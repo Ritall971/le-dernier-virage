@@ -39,6 +39,23 @@ Puis ouvre http://localhost:8000 dans le navigateur. (Avec Node : `npx serve .`)
 | `js/photos.js` | Vraies photos des voitures et des livrées, chargées depuis Wikipédia et Wikimedia Commons (licences libres, auteur crédité). Si aucune photo libre n'existe, l'illustration reste |
 | `js/demo.js` | Données d'exemple tirées au sort (jamais affichées quand l'API répond) |
 
+## Comptes et pronostics (Supabase)
+
+Les pages **Pronos** et **Compte** utilisent [Supabase](https://supabase.com) (gratuit) pour les comptes, les pronostics et le classement des joueurs.
+
+1. Dans Supabase, ouvre **SQL Editor > New query**, colle tout le contenu de `supabase/schema.sql` puis clique sur **Run**. À refaire seulement si tu changes le barème.
+2. Dans **Authentication > URL Configuration**, mets l'adresse de ton site Netlify dans **Site URL** et ajoute-la aussi dans **Redirect URLs**.
+3. Mets ton adresse de contact dans `contactEmail` de `js/config.js` (page Confidentialité).
+
+Le calendrier et les points sont mis à jour automatiquement toutes les heures par Supabase. La pole se ferme au début des qualifications, le podium au départ de la course, selon l'heure du serveur. Le barème se change dans la fonction `points_for` de `supabase/schema.sql` et dans `SCORING` de `js/views/pronos.js`.
+
+| Fichier | Rôle |
+| --- | --- |
+| `supabase/schema.sql` | Tables, règles de sécurité, verrouillage, calcul des points, tâche automatique |
+| `js/auth.js` | Connexion à Supabase et messages d'erreur en français |
+| `js/vendor/supabase.js` | Bibliothèque officielle Supabase (licence MIT), copiée ici pour ne dépendre d'aucun autre site |
+| `js/views/pronos.js`, `account.js`, `privacy.js` | Pages Pronos, Mon compte et Confidentialité |
+
 ## Sources de données
 
 - **Jolpica F1** (gratuit, sans clé) : calendrier, résultats, qualifications, sprints, classements. Mis à jour quelques heures après chaque course.

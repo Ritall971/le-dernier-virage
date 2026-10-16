@@ -15,6 +15,10 @@ import * as team from './views/team.js';
 import * as circuitsView from './views/circuits.js';
 import * as circuit from './views/circuit.js';
 import * as live from './views/live.js';
+import * as pronos from './views/pronos.js';
+import * as account from './views/account.js';
+import * as privacy from './views/privacy.js';
+import { handleEmailReturn } from './auth.js';
 
 // [motif, vue, rubrique du menu]
 const ROUTES = [
@@ -29,6 +33,9 @@ const ROUTES = [
   [/^\/ecuries\/([\w-]+)$/, team, 'ecuries'],
   [/^\/circuits$/, circuitsView, 'circuits'],
   [/^\/circuits\/([\w-]+)$/, circuit, 'circuits'],
+  [/^\/pronos$/, pronos, 'pronos'],
+  [/^\/compte$/, account, 'compte'],
+  [/^\/confidentialite$/, privacy, ''],
 ];
 
 const main = document.getElementById('main');
@@ -110,6 +117,8 @@ document.fonts?.ready.then(measureHeader);
 initHeader(header);
 initMagnet();
 
-render();
+// Retour d'un lien reçu par e-mail (confirmation du compte, mot de passe oublié) : on ouvre la session d'abord.
+if (/[?&](code|error_description)=/.test(location.search)) handleEmailReturn().finally(render);
+else render();
 updateLiveDot();
 setInterval(updateLiveDot, 60_000);
