@@ -343,6 +343,9 @@ table.data { width: 100%; border-collapse: collapse; font-variant-numeric: tabul
 .track--mini .track__line { stroke-width: 22; filter: none; stroke-dasharray: none; }
 .track--mini { shape-rendering: optimizeSpeed; }
 .track-facts { display: grid; gap: 10px; }
+.stat--record { grid-column: 1 / -1; }
+.stat--record b { margin: 6px 0 4px; color: var(--purple); }
+.stat__by { color: var(--ink); font-size: 15px; font-weight: 600; }
 .card__track { position: relative; height: 120px; margin: 4px 0 6px; contain: strict; }
 .card__track .track { height: 100%; max-height: none; }
 .note { color: var(--dim); font-size: 13px; margin: 0; }
