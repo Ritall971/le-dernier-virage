@@ -4,6 +4,7 @@ import { esc, nat, raceName } from '../fmt.js';
 import { teamColor, teamKey } from '../teams.js';
 import { TEAM_DATA, SPECS_2026 } from '../team-data.js';
 import { carSvg } from './car.js';
+import { hydratePhotos } from '../photos.js';
 import { sectionHead, driverCard, empty } from '../ui.js';
 import { pointsChart } from './chart.js';
 
@@ -80,7 +81,7 @@ function carBlock(id, name) {
   const specs = [['Châssis', data.car], ['Moteur', data.engine], ['Base', data.base], ...SPECS_2026];
   return `<section class="section">
     ${sectionHead(`La voiture : ${data.car}`)}
-    <div class="car-hero" style="--c:${current.primary}">
+    <div class="car-hero" style="--c:${current.primary}" data-photo="${esc(current.q)}" data-must="${esc(current.car)}">
       ${carSvg(current, `${name} ${data.car}`)}
     </div>
     <dl class="specs">${specs.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
@@ -89,10 +90,14 @@ function carBlock(id, name) {
     ${sectionHead('Les livrées')}
     <div class="liveries">
       ${data.liveries.slice().reverse().map((l) => `<figure class="livery">
-        ${carSvg(l, `Livrée ${l.year}`)}
+        <div class="livery__media" data-photo="${esc(l.q)}" data-must="${esc(l.car)}">${carSvg(l, `Livrée ${l.year}`)}</div>
         <figcaption><b>${l.year}</b> ${esc(l.car)}${l.note ? `<span>${esc(l.note)}</span>` : ''}</figcaption>
       </figure>`).join('')}
     </div>
-    <p class="note">Illustrations aux couleurs de chaque livrée, saisons ${data.liveries[0].year} à ${current.year}.</p>
+    <p class="note">Photos libres de droits issues de Wikimedia Commons (auteur et licence sous chaque photo). Quand aucune photo libre n'existe encore, une illustration aux couleurs de la livrée la remplace.</p>
   </section>`;
+}
+
+export function mount(el) {
+  hydratePhotos(el);
 }

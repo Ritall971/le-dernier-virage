@@ -393,3 +393,18 @@ html.motion .rv.in .track__line { transition: stroke-dashoffset 2.4s cubic-bezie
 
 /* Les cartes avec croquis gardent des coins droits : le découpage forcerait à redessiner le tracé à chaque image. */
 .card--track { clip-path: none; border-bottom: 1px solid var(--line); }
+
+/* ---------- Photos des voitures ---------- */
+.car-hero[data-photo], .livery__media { position: relative; }
+.car-photo { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; opacity: 0; transition: opacity .6s ease; }
+.car-photo.loaded { opacity: 1; }
+.car-hero .car-photo { max-height: 520px; }
+.livery__media { aspect-ratio: 16 / 9; display: grid; place-items: center; overflow: hidden; background: #0e0e10; }
+.livery__media .car-photo { position: absolute; inset: 0; height: 100%; }
+.credit {
+  position: absolute; right: 0; bottom: 0; max-width: 100%; padding: 3px 8px;
+  font-size: 11px; color: #e9e6e1; background: #000000b3; text-decoration: none;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.credit:hover { text-decoration: underline; }
+.car-hero:has(.car-photo) { padding: 0; }
