@@ -98,10 +98,12 @@ body { padding-top: var(--hdr-h, 64px); }
   text-transform: uppercase; letter-spacing: .01em; text-decoration: none; white-space: nowrap;
 }
 .logo span { color: var(--red); margin: 0 1px; }
+.logo { display: inline-flex; align-items: center; }
+.logo__mark { width: 30px; height: 30px; margin-right: 10px; flex: none; }
 .logo--small { font-size: 20px; }
-.site-nav { display: flex; gap: 20px; flex-wrap: wrap; margin-left: auto; }
+.site-nav { display: flex; gap: 16px; flex-wrap: wrap; margin-left: auto; }
 .site-nav a {
-  font: 700 15px/1 var(--display); text-transform: uppercase; letter-spacing: .09em;
+  font: 700 15px/1 var(--display); text-transform: uppercase; letter-spacing: .07em;
   color: var(--dim); text-decoration: none; padding: 8px 0; border-bottom: 2px solid transparent;
   display: inline-flex; align-items: center; gap: 7px;
 }
@@ -361,7 +363,7 @@ table.data { width: 100%; border-collapse: collapse; font-variant-numeric: tabul
   .profile__photo { height: 160px; }
 }
 /* Le menu passe derrière le bouton dès qu'il ne tient plus sur une ligne. */
-@media (max-width: 1160px) {
+@media (max-width: 1200px) {
   .menu-btn { display: inline-block; }
   .site-header__inner { gap: 12px; }
   .site-nav { display: none; width: 100%; flex-direction: column; gap: 0; margin-left: 0; }
