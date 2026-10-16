@@ -45,7 +45,8 @@ Les pages **Pronos** et **Compte** utilisent [Supabase](https://supabase.com) (g
 
 1. Dans Supabase, ouvre **SQL Editor > New query**, colle tout le contenu de `supabase/schema.sql` puis clique sur **Run**. À refaire seulement si tu changes le barème.
 2. Dans **Authentication > URL Configuration**, mets l'adresse de ton site Netlify dans **Site URL** et ajoute-la aussi dans **Redirect URLs**.
-3. Mets ton adresse de contact dans `contactEmail` de `js/config.js` (page Confidentialité).
+3. Connexion Google (facultatif) : crée un identifiant OAuth « Application Web » dans [Google Cloud Console](https://console.cloud.google.com/apis/credentials), avec comme URI de redirection autorisée `https://ysfbhegmxwnfrmpcvvxu.supabase.co/auth/v1/callback`. Colle ensuite l'ID client et le code secret dans Supabase, **Authentication > Providers > Google**, puis active Google.
+4. Mets ton adresse de contact dans `contactEmail` de `js/config.js` (page Confidentialité).
 
 Le calendrier et les points sont mis à jour automatiquement toutes les heures par Supabase. La pole se ferme au début des qualifications, le podium au départ de la course, selon l'heure du serveur. Le barème se change dans la fonction `points_for` de `supabase/schema.sql` et dans `SCORING` de `js/views/pronos.js`.
 

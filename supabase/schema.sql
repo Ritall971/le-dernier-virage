@@ -72,7 +72,12 @@ create table if not exists public.predictions (
 create or replace function public.handle_new_user() returns trigger
 language plpgsql security definer set search_path = public as $$
 declare
-  wanted text := left(coalesce(nullif(trim(new.raw_user_meta_data ->> 'pseudo'), ''), 'pilote'), 15);
+  -- pseudo choisi à l'inscription, sinon le prénom du compte Google, sinon « pilote »
+  wanted text := left(coalesce(
+    nullif(trim(new.raw_user_meta_data ->> 'pseudo'), ''),
+    nullif(split_part(trim(new.raw_user_meta_data ->> 'full_name'), ' ', 1), ''),
+    nullif(split_part(trim(new.raw_user_meta_data ->> 'name'), ' ', 1), ''),
+    'pilote'), 15);
 begin
   if char_length(wanted) < 3 then wanted := wanted || '-f1'; end if;
   begin
