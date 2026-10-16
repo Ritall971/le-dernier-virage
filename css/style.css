@@ -180,6 +180,7 @@ a.card:hover { transform: translateY(-3px); }
   font: italic 800 120px/1 var(--display); color: var(--c, #444); opacity: .22;
 }
 .card__photo { position: absolute; right: 0; bottom: 0; height: 88%; width: auto; opacity: .95; mask-image: linear-gradient(180deg, #000 70%, transparent); pointer-events: none; }
+.card__logo { position: absolute; right: 16px; bottom: 16px; width: 64px; height: 64px; object-fit: contain; opacity: .9; pointer-events: none; }
 .card__pos { font: 800 16px var(--display); letter-spacing: .12em; color: var(--dim); position: relative; }
 .card__name { position: relative; margin-top: 6px; font: italic 800 34px/0.92 var(--display); text-transform: uppercase; }
 .card__name small { display: block; font: 700 18px/1.1 var(--display); color: var(--dim); font-style: normal; letter-spacing: .04em; }
@@ -198,6 +199,7 @@ a.card:hover { transform: translateY(-3px); }
 a.row:hover { background: color-mix(in srgb, var(--c, #444) 18%, #0f0f10); }
 .row__pos { font: italic 800 20px var(--display); color: var(--dim); font-variant-numeric: tabular-nums; }
 .row__name { font: 700 20px/1.1 var(--display); text-transform: uppercase; letter-spacing: .03em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row__logo { width: 26px; height: 26px; object-fit: contain; vertical-align: middle; margin: -4px 10px 0 0; }
 .row__name span { color: var(--dim); font-weight: 500; font-size: 16px; margin-left: 10px; text-transform: none; letter-spacing: 0; font-family: var(--text); }
 .row__extra { color: var(--dim); font-size: 14px; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .row__pts { font: 800 22px var(--display); font-variant-numeric: tabular-nums; text-align: right; min-width: 3.2ch; }
@@ -260,6 +262,8 @@ table.data { width: 100%; border-collapse: collapse; font-variant-numeric: tabul
   pointer-events: none;
 }
 .profile__inner { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; }
+.profile__side { display: flex; align-items: center; gap: 20px; }
+.profile__logo { width: clamp(72px, 12vw, 140px); height: clamp(72px, 12vw, 140px); object-fit: contain; }
 .profile__bignum { font: italic 800 clamp(110px, 18vw, 220px)/0.8 var(--display); color: var(--c, #444); opacity: .9; }
 .profile h1 { margin: 6px 0 0; font: italic 800 clamp(44px, 8vw, 96px)/0.86 var(--display); text-transform: uppercase; }
 .profile h1 small { display: block; font-size: .42em; color: var(--dim); font-style: normal; letter-spacing: .04em; }

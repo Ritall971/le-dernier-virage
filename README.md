@@ -29,7 +29,7 @@ Puis ouvre http://localhost:8000 dans le navigateur. (Avec Node : `npx serve .`)
 | `js/app.js` | Navigation entre les pages (`#/classements`, `#/pilotes/norris`…) |
 | `js/api.js` | Appels aux API, cache de 10 min, bascule sur les données d'exemple si hors ligne |
 | `js/season.js` | Logique du week-end : sessions, session en cours, prochaine course |
-| `js/teams.js` | Couleurs des écuries |
+| `js/teams.js` | Couleurs et logos des écuries (logos officiels chargés depuis le site de la F1) |
 | `js/fmt.js` | Dates en français, traductions, mise en forme |
 | `js/ui.js` | Éléments réutilisés : cartes pilotes, lignes de classement, lignes de calendrier |
 | `js/views/*.js` | Une page par fichier |

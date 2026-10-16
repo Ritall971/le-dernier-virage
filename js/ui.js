@@ -1,12 +1,18 @@
 // Morceaux d'interface réutilisés par plusieurs pages.
 import { esc, fmtRange, fmtDay, raceName, country } from './fmt.js';
-import { teamColor } from './teams.js';
+import { teamColor, teamLogo } from './teams.js';
 import { weekendStart, raceStart, isSprintWeekend } from './season.js';
 
 // Photo haute définition, avec repli sur la miniature puis sur rien si l'image n'existe pas.
 export function photoImg(p, cls, alt) {
   return `<img class="${cls}" src="${esc(p.photo)}" data-fallback="${esc(p.photoSmall || '')}" alt="${esc(alt)}" loading="lazy" decoding="async"
     onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=''}else{this.remove()}">`;
+}
+
+// Logo d'une écurie ; disparaît sans laisser de trou si l'image ne charge pas.
+export function logoImg(idOrName, cls, size) {
+  const src = teamLogo(idOrName, size);
+  return src ? `<img class="${cls}" src="${esc(src)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : '';
 }
 
 export const kerb = () => '<div class="kerb" aria-hidden="true"></div>';
@@ -36,6 +42,7 @@ export function teamCard({ team, pos, stat, statLabel = 'PTS', drivers = [] }) {
   const c = teamColor(team.constructorId || team.name);
   return `<a class="card" href="#/ecuries/${esc(team.constructorId)}" style="--c:${c}">
     <div class="card__num" aria-hidden="true">${pos ? esc(pos) : ''}</div>
+    ${logoImg(team.constructorId || team.name, 'card__logo', 128)}
     <div class="card__pos">${pos ? `P${esc(pos)}` : esc(team.nationality || '')}</div>
     <div class="card__name">${esc(team.name)}</div>
     <div class="card__team">${drivers.map((d) => esc(d.familyName)).join(' · ')}</div>
@@ -58,7 +65,7 @@ export function teamRow(s) {
   const c = teamColor(s.Constructor.constructorId);
   return `<a class="row" href="#/ecuries/${esc(s.Constructor.constructorId)}" style="--c:${c}">
     <div class="row__pos">${esc(s.position ?? s.positionText ?? '–')}</div>
-    <div class="row__name">${esc(s.Constructor.name)}</div>
+    <div class="row__name">${logoImg(s.Constructor.constructorId, 'row__logo', 64)}${esc(s.Constructor.name)}</div>
     <div class="row__extra">${Number(s.wins) ? `${esc(s.wins)} victoire${Number(s.wins) > 1 ? 's' : ''}` : ''}</div>
     <div class="row__pts">${esc(s.points)}<small>PTS</small></div>
   </a>`;

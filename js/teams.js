@@ -41,3 +41,26 @@ export function teamColor(idOrName, fallback) {
   if (fallback) return fallback.startsWith('#') ? fallback : `#${fallback}`;
   return '#777777';
 }
+
+// Logos officiels (version blanche, fond transparent), chargés depuis le site de la F1 comme les photos des pilotes.
+const LOGOS = {
+  mclaren: [2026, 'mclaren'],
+  ferrari: [2026, 'ferrari'],
+  mercedes: [2026, 'mercedes'],
+  red_bull: [2026, 'redbullracing'],
+  aston_martin: [2026, 'astonmartin'],
+  alpine: [2026, 'alpine'],
+  williams: [2026, 'williams'],
+  rb: [2026, 'racingbulls'],
+  haas: [2026, 'haasf1team'],
+  sauber: [2025, 'kicksauber'],
+  audi: [2026, 'audi'],
+  cadillac: [2026, 'cadillac'],
+};
+
+export function teamLogo(idOrName, size = 128) {
+  const l = LOGOS[teamKey(idOrName)];
+  if (!l) return '';
+  const [year, slug] = l;
+  return `https://media.formula1.com/image/upload/c_fit,h_${size}/q_auto/v1740000000/common/f1/${year}/${slug}/${year}${slug}logowhite.webp`;
+}
