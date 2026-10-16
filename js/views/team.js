@@ -5,7 +5,7 @@ import { teamColor, teamKey } from '../teams.js';
 import { TEAM_DATA, SPECS_2026 } from '../team-data.js';
 import { carSvg } from './car.js';
 import { hydratePhotos } from '../photos.js';
-import { sectionHead, driverCard, empty } from '../ui.js';
+import { sectionHead, driverCard, empty, logoImg } from '../ui.js';
 import { pointsChart } from './chart.js';
 
 let currentTitle = 'Écurie';
@@ -34,7 +34,10 @@ export async function render(id) {
         <h1>${esc(team.name)}</h1>
         <div class="facts"><span>Nationalité <b>${esc(nat(team.nationality))}</b></span><span>Pilotes <b>${drivers.map((d) => esc(d.Driver.familyName)).join(', ') || '–'}</b></span></div>
       </div>
-      <div class="profile__bignum" aria-hidden="true">${st ? `P${esc(st.position)}` : ''}</div>
+      <div class="profile__side">
+        ${logoImg(id, 'profile__logo', 256)}
+        <div class="profile__bignum" aria-hidden="true">${st ? `P${esc(st.position)}` : ''}</div>
+      </div>
     </div>
   </section>
   <div class="kerb" aria-hidden="true"></div>
